@@ -5,6 +5,10 @@ import Link from 'next/link'
 import { getKnowledge, getSessions, getInboxItems } from '@/lib/api'
 import { KnowledgeResponse, SessionsResponse, InboxResponse } from '@/lib/types'
 
+// Force dynamic rendering - no static generation
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default function DashboardPage() {
   const [knowledge, setKnowledge] = useState<KnowledgeResponse | null>(null)
   const [sessions, setSessions] = useState<SessionsResponse | null>(null)

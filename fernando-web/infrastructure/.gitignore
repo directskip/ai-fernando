@@ -1,0 +1,17 @@
+# Parcel related files
+dist/
+.cache/
+
+# CDK asset staging directory
+.cdk.staging/
+cdk.out/
+
+# Parcel related files
+dist/
+.cache/
+
+# misc
+*.d.ts
+node_modules/
+*.generated.js
+jsii.out/

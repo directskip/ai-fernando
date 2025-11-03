@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* Global Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+  line-height: 1.6;
+}
+
+/* Dark Mode Preferences */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+  }
+
+  /* Improve dark mode contrast */
+  .dark\:bg-gray-900 {
+    background-color: #0f172a !important;
+  }
+
+  .dark\:bg-gray-800 {
+    background-color: #1e293b !important;
+  }
+
+  .dark\:text-white {
+    color: #f1f5f9 !important;
+  }
+}
+
+/* Ensure tap targets are at least 44x44px for mobile - WCAG 2.5.5 requirement */
+button,
+a[role='button'],
+input[type='button'],
+input[type='submit'],
+input[type='checkbox'],
+input[type='radio'],
+label {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Ensure links in navigation have proper touch targets */
+nav a,
+nav button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Optimized Smooth Transitions - Only on specific elements */
+button,
+a,
+input,
+textarea,
+select,
+[class*="transition"] {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Instant feedback on active state */
+button:active,
+a:active {
+  transition-duration: 50ms;
+}
+
+/* Focus visible states for accessibility */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Agent activity map animations */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes highlight-border {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.pulse-active {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+.highlight-new {
+  animation: highlight-border 2s ease-in-out 3;
+}
+
+/* React Flow custom styles */
+.react-flow__node {
+  cursor: pointer;
+}
+
+.react-flow__edge {
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.react-flow__edge:hover {
+  stroke-width: 3px !important;
+}
+
+.react-flow__controls {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.react-flow__minimap {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+/* Mobile Navigation Animations */
+
+/* Slide-in animation for mobile menu */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Slide-out animation for mobile menu */
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Backdrop fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Backdrop fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Hamburger menu animation - smooth transformation */
+.hamburger-menu {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hamburger-menu.open {
+  transform: rotate(90deg);
+}
+
+/* Mobile menu link hover/focus state - smooth color transition */
+nav a:focus-visible,
+nav button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Prevent layout shift when menu opens */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Smooth transitions for all navigation elements */
+nav a,
+nav button,
+nav [role='menuitem'] {
+  transition: background-color 0.3s ease-in-out,
+              color 0.3s ease-in-out,
+              transform 0.2s ease-in-out;
+}
+
+/* Active state animation for menu items */
+nav a:active,
+nav button:active {
+  transform: scale(0.98);
+}
+
+/* Ensure proper mobile touch feedback */
+@media (hover: hover) and (pointer: fine) {
+  nav a:hover,
+  nav button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Improved button styles */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Better scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth height transitions for dynamic content */
+.transition-height {
+  transition: height 0.3s ease-in-out;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}

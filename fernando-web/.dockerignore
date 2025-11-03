@@ -1,0 +1,71 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Git
+.git
+.gitignore
+
+# Next.js
+.next
+.env
+.env.local
+.env.*.local
+.env.production
+.env.example
+
+# Vercel
+.vercel
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Documentation and config
+README.md
+QUICKSTART.md
+*.md
+tsconfig.json
+postcss.config.js
+tailwind.config.ts
+next.config.js
+eslintrc.json
+.eslintrc.json
+
+# Testing and development
+test-*.js
+test-*.ts
+mock-ws-server.js
+
+# CI/CD and build artifacts
+.github
+.gitlab-ci.yml
+Makefile
+docker-compose.yml
+
+# Development files
+AGENT_*.md
+BRAIN_DUMP_*.md
+CHAT_*.md
+CLAUDE_CODE_*.md
+CUSTOM_DOMAIN_*.md
+DEPLOYMENT.md
+FINDINGS.md
+MOBILE_*.md
+RULES_*.md
+TESTING_COMPLETE.txt
+TEST_*.md
+WEBSOCKET_CONFIG.md

@@ -1,0 +1,23 @@
+{
+  "app": "npx ts-node src/index.ts",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "README.md",
+      "cdk*.json",
+      "package*.json",
+      ".gitignore",
+      "lib/**",
+      "src/**.d.ts",
+      "tsconfig.json"
+    ]
+  },
+  "context": {
+    "availabilityZones:account=ACCOUNT_ID:region=REGION": [
+      "REGION_AZa",
+      "REGION_AZb"
+    ]
+  }
+}

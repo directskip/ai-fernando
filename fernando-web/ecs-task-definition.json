@@ -1,0 +1,63 @@
+{
+  "family": "fernando-web-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "containerDefinitions": [
+    {
+      "name": "fernando-web",
+      "image": "YOUR_AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/fernando-web:latest",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "NEXTAUTH_URL",
+          "value": "https://fernando.iwantmyown.com"
+        },
+        {
+          "name": "NEXTAUTH_SECRET",
+          "value": "fernando-production-secret-a8f9e2c1b5d4a3f7e9c8b2d1a6f5e4d3c2b1a9f8e7d6c5b4a3f2e1d0"
+        },
+        {
+          "name": "NEXT_PUBLIC_FERNANDO_API_URL",
+          "value": "https://p1k9c6b251.execute-api.us-east-1.amazonaws.com/prod"
+        },
+        {
+          "name": "NEXT_PUBLIC_TENANT_ID",
+          "value": "peter"
+        },
+        {
+          "name": "NEXT_PUBLIC_WS_URL",
+          "value": "wss://m8xcc0194m.execute-api.us-east-1.amazonaws.com/prod"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/fernando-web",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:3000/api/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/ecsTaskRole"
+}

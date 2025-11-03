@@ -29,9 +29,14 @@ export default function AdminNav() {
       })
       .catch(() => setServerInfo(prev => ({ ...prev, containerIp: 'Error' })))
 
-    fetch(process.env.NEXT_PUBLIC_FERNANDO_API_URL + '/health', { method: 'HEAD' })
-      .then(res => setServerInfo(prev => ({ ...prev, apiStatus: res.ok ? 'connected' : 'down' })))
-      .catch(() => setServerInfo(prev => ({ ...prev, apiStatus: 'down' })))
+    const apiUrl = process.env.NEXT_PUBLIC_FERNANDO_API_URL
+    if (apiUrl) {
+      fetch(apiUrl + '/health', { method: 'HEAD' })
+        .then(res => setServerInfo(prev => ({ ...prev, apiStatus: res.ok ? 'connected' : 'down' })))
+        .catch(() => setServerInfo(prev => ({ ...prev, apiStatus: 'down' })))
+    } else {
+      setServerInfo(prev => ({ ...prev, apiStatus: 'down' }))
+    }
 
     setServerInfo(prev => ({
       ...prev,

@@ -9,6 +9,14 @@ RUN npm install
 
 COPY . .
 
+# Copy env file for build-time variables
+COPY .env.production .env.production
+
+# Clear Next.js cache before building
+RUN rm -rf .next
+
+# Build with production env vars
+ENV NODE_ENV=production
 RUN npm run build
 
 # Production stage

@@ -11,9 +11,9 @@ export function middleware(request: NextRequest) {
   // - peter.iwantmyown.com -> peter
   const subdomain = hostname.split('.')[0]
 
-  // For local development
-  if (hostname.includes('localhost') || hostname.includes('127.0.0.1')) {
-    // During local dev, treat everything as the main site
+  // For local development or ALB health checks
+  if (hostname.includes('localhost') || hostname.includes('127.0.0.1') || hostname.includes('elb.amazonaws.com')) {
+    // During local dev or ALB access, treat everything as the main site
     return NextResponse.next()
   }
 

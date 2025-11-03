@@ -15,10 +15,11 @@ The fernando-web application is automatically deployed to AWS ECS via GitHub Act
 ### Infrastructure
 
 - **ECS Cluster**: fernando-web-cluster
-- **ECS Service**: fernando-web-service
+- **ECS Service**: fernando-web-service (ACTIVE, 1 task running)
 - **ECR Repository**: fernando-web
-- **Load Balancer**: fernando-web-alb
-- **DNS**: fernando-web-alb-2017529406.us-east-1.elb.amazonaws.com
+- **Load Balancer**: fernando-web-alb (active)
+- **URL**: http://fernando-web-alb-2017529406.us-east-1.elb.amazonaws.com
+- **Status**: ✅ DEPLOYED AND RUNNING
 
 ### Manual Deployment
 

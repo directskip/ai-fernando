@@ -236,6 +236,17 @@ export default function AdminNav() {
               <span className="text-gray-600 dark:text-gray-400">UI</span>
               <span className="text-gray-500 dark:text-gray-400 font-mono">v2.3.4</span>
             </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">Server IP</span>
+              <span className="text-gray-500 dark:text-gray-400 font-mono text-xs" title={serverInfo.containerIp}>
+                {serverInfo.containerIp.substring(0, 12)}...
+              </span>
+            </div>
+            <div className="px-2 py-1 mt-2 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
+              <p className="text-xs text-blue-700 dark:text-blue-300 font-bold text-center">
+                🚀 ECS DEPLOYMENT
+              </p>
+            </div>
           </div>
         </div>
 

@@ -34,16 +34,10 @@ package-lock.json
 .Trashes
 ehthumbs.db
 
-# Documentation and config
+# Documentation
 README.md
 QUICKSTART.md
 *.md
-tsconfig.json
-postcss.config.js
-tailwind.config.ts
-next.config.js
-eslintrc.json
-.eslintrc.json
 
 # Testing and development
 test-*.js

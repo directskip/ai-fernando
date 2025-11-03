@@ -10,6 +10,7 @@ export default function AdminNav() {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [serverIp, setServerIp] = useState<string>('Loading...')
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     'Core': true,
     'Content': true,
@@ -18,6 +19,16 @@ export default function AdminNav() {
   })
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
+
+  // Fetch server IP on mount
+  useEffect(() => {
+    fetch('/api/server-info')
+      .then(res => res.json())
+      .then(data => {
+        setServerIp(data.containerIp || data.forwardedFor || 'Unknown')
+      })
+      .catch(() => setServerIp('Error'))
+  }, [])
 
   const toggleGroup = (groupName: string) => {
     setExpandedGroups(prev => ({
@@ -190,8 +201,11 @@ export default function AdminNav() {
           >
             Sign Out
           </button>
-          <div className="text-center pt-2">
+          <div className="text-center pt-2 space-y-1">
             <p className="text-xs text-gray-400 dark:text-gray-600 font-mono">v2.3.3</p>
+            <p className="text-xs text-gray-500 dark:text-gray-500 font-mono truncate" title={serverIp}>
+              IP: {serverIp}
+            </p>
           </div>
         </div>
       </aside>

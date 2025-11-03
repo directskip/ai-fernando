@@ -95,11 +95,11 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <main className="container mx-auto px-4 py-6 md:py-8">
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin">
-            <p className="text-4xl">⏳</p>
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="text-6xl mb-4 animate-spin inline-block">⚡</div>
+            <p className="text-lg" style={{ color: 'var(--color-text-secondary)' }}>Loading dashboard...</p>
           </div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading dashboard...</p>
         </div>
       </main>
     )
@@ -108,9 +108,9 @@ export default function DashboardPage() {
   if (error) {
     return (
       <main className="container mx-auto px-4 py-6 md:py-8">
-        <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4 text-red-800 dark:text-red-200">
-          <h2 className="font-semibold mb-2">Error</h2>
-          <p>{error}</p>
+        <div className="glass p-6 rounded-2xl border border-red-500/20 bg-red-500/10">
+          <h2 className="font-bold mb-2 text-lg" style={{ color: 'var(--color-error)' }}>Error Loading Dashboard</h2>
+          <p style={{ color: 'var(--color-text-secondary)' }}>{error}</p>
         </div>
       </main>
     )
@@ -118,190 +118,175 @@ export default function DashboardPage() {
 
   return (
     <main className="">
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-          Dashboard
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl md:text-5xl font-black mb-2">
+          <span className="gradient-text">Dashboard</span>
         </h1>
-        <p className="text-base text-gray-600 dark:text-gray-400">Welcome back! Here is your overview.</p>
+        <p className="text-lg" style={{ color: 'var(--color-text-secondary)' }}>
+          Your AI assistant command center
+        </p>
       </div>
 
-      {/* Inbox Alert */}
-      {stats.inboxCount > 0 && (
-        <div className="mb-4 md:mb-6 bg-purple-50 dark:bg-purple-900 border-l-4 border-purple-500 p-3 md:p-5 rounded-r-lg shadow-sm">
-          <div className="flex flex-col items-start justify-between gap-3 sm:gap-4">
-            <div className="flex items-start gap-2 md:gap-3 w-full">
-              <span className="text-2xl md:text-3xl flex-shrink-0">📬</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-purple-800 dark:text-purple-200 font-semibold text-sm md:text-base mb-0.5">
-                  {stats.inboxCount} brain dump{stats.inboxCount !== 1 ? 's' : ''} waiting for review
-                </p>
-                <p className="text-purple-700 dark:text-purple-300 text-xs md:text-sm">
-                  Review AI extractions and provide feedback to help Fernando learn
-                </p>
+      {/* Alert Cards */}
+      {(stats.inboxCount > 0 || stats.unclassifiedCount > 0) && (
+        <div className="grid gap-4 mb-8 md:grid-cols-2">
+          {stats.inboxCount > 0 && (
+            <div className="glass p-6 rounded-2xl border card-hover"
+                 style={{
+                   borderLeftWidth: '4px',
+                   borderLeftColor: 'var(--color-accent)',
+                   background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%)'
+                 }}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-4xl">📬</div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg mb-1" style={{ color: 'var(--color-text-primary)' }}>
+                    {stats.inboxCount} Brain Dump{stats.inboxCount !== 1 ? 's' : ''} Pending
+                  </h3>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                    Review AI extractions and provide feedback
+                  </p>
+                </div>
               </div>
+              <Link href="/admin/inbox" className="btn-primary text-sm w-full block text-center">
+                Review Inbox
+              </Link>
             </div>
-            <Link
-              href="/admin/inbox"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium transition-colors whitespace-nowrap w-full sm:w-auto text-center sm:text-left min-h-[44px] flex items-center justify-center"
-            >
-              Review Inbox
-            </Link>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* Unclassified Alert */}
-      {stats.unclassifiedCount > 0 && (
-        <div className="mb-4 md:mb-6 bg-orange-50 dark:bg-orange-900 border-l-4 border-orange-500 p-3 md:p-5 rounded-r-lg shadow-sm">
-          <div className="flex flex-col items-start justify-between gap-3 sm:gap-4">
-            <div className="flex items-start gap-2 md:gap-3 w-full">
-              <span className="text-2xl md:text-3xl flex-shrink-0">⚠️</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-orange-800 dark:text-orange-200 font-semibold text-sm md:text-base mb-0.5">
-                  {stats.unclassifiedCount} item{stats.unclassifiedCount !== 1 ? 's' : ''} need{stats.unclassifiedCount === 1 ? 's' : ''} classification
-                </p>
-                <p className="text-orange-700 dark:text-orange-300 text-xs md:text-sm">
-                  Review and classify knowledge items to improve organization
-                </p>
+          {stats.unclassifiedCount > 0 && (
+            <div className="glass p-6 rounded-2xl border card-hover"
+                 style={{
+                   borderLeftWidth: '4px',
+                   borderLeftColor: 'var(--color-warning)',
+                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(239, 68, 68, 0.05) 100%)'
+                 }}>
+              <div className="flex items-start gap-4 mb-4">
+                <div className="text-4xl">⚠️</div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg mb-1" style={{ color: 'var(--color-text-primary)' }}>
+                    {stats.unclassifiedCount} Item{stats.unclassifiedCount !== 1 ? 's' : ''} Unclassified
+                  </h3>
+                  <p className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                    Classify knowledge to improve organization
+                  </p>
+                </div>
               </div>
+              <Link href="/admin/classify"
+                    className="px-6 py-3 rounded-xl font-semibold text-sm w-full block text-center transition-all duration-300 hover:scale-105"
+                    style={{
+                      background: 'linear-gradient(135deg, var(--color-warning), var(--color-error))',
+                      color: 'white',
+                      boxShadow: 'var(--shadow-md)'
+                    }}>
+                Classify Now
+              </Link>
             </div>
-            <Link
-              href="/admin/classify"
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 md:px-5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium transition-colors whitespace-nowrap w-full sm:w-auto text-center sm:text-left min-h-[44px] flex items-center justify-center"
-            >
-              Classify Now
-            </Link>
-          </div>
+          )}
         </div>
       )}
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
+        <div className="glass p-8 rounded-2xl border card-hover">
           <div className="flex items-start justify-between mb-4">
-            <div className="text-3xl">📚</div>
-            <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded">
-              Total
+            <div className="text-5xl">📚</div>
+            <div className="px-3 py-1 rounded-full text-xs font-bold" style={{
+              background: 'rgba(14, 165, 233, 0.1)',
+              color: 'var(--color-primary)'
+            }}>
+              TOTAL
             </div>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Knowledge Items</p>
-          <p className="text-4xl font-bold text-gray-900 dark:text-white">
+          <p className="text-sm font-semibold mb-2" style={{ color: 'var(--color-text-secondary)' }}>
+            Knowledge Items
+          </p>
+          <p className="text-5xl font-black gradient-text">
             {stats.totalKnowledge}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+        <div className="glass p-8 rounded-2xl border card-hover">
           <div className="flex items-start justify-between mb-4">
-            <div className="text-3xl">📋</div>
-            <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded">
-              Total
+            <div className="text-5xl">📋</div>
+            <div className="px-3 py-1 rounded-full text-xs font-bold" style={{
+              background: 'rgba(6, 182, 212, 0.1)',
+              color: 'var(--color-secondary)'
+            }}>
+              TOTAL
             </div>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Sessions</p>
-          <p className="text-4xl font-bold text-gray-900 dark:text-white">
+          <p className="text-sm font-semibold mb-2" style={{ color: 'var(--color-text-secondary)' }}>
+            Sessions
+          </p>
+          <p className="text-5xl font-black gradient-text">
             {stats.totalSessions}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+        <div className="glass p-8 rounded-2xl border card-hover">
           <div className="flex items-start justify-between mb-4">
-            <div className="text-3xl">🟢</div>
-            <div className="text-xs font-medium text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded">
-              Active
+            <div className="text-5xl">⚡</div>
+            <div className="px-3 py-1 rounded-full text-xs font-bold" style={{
+              background: 'rgba(16, 185, 129, 0.1)',
+              color: 'var(--color-success)'
+            }}>
+              ACTIVE
             </div>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Sessions</p>
-          <p className="text-4xl font-bold text-gray-900 dark:text-white">
+          <p className="text-sm font-semibold mb-2" style={{ color: 'var(--color-text-secondary)' }}>
+            Sessions
+          </p>
+          <p className="text-5xl font-black" style={{ color: 'var(--color-success)' }}>
             {stats.activeSessions}
           </p>
         </div>
       </div>
 
       {/* Knowledge Categories */}
-      <div className="mb-8 md:mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-5">
+      <div className="mb-12">
+        <h2 className="text-3xl font-black mb-6" style={{ color: 'var(--color-text-primary)' }}>
           Knowledge Categories
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">📖</p>
-            <p className="text-green-700 dark:text-green-300 font-bold text-2xl md:text-3xl mb-1">
-              {(() => {
-                const data = knowledge?.public
-                if (Array.isArray(data)) return data.length
-                if (typeof data === 'object' && data !== null) return Object.keys(data).length
-                return 0
-              })()}
-            </p>
-            <p className="text-xs md:text-sm text-green-700 dark:text-green-400 font-semibold">Public</p>
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {[
+            { icon: '📖', label: 'Public', color: '#10b981', data: knowledge?.public },
+            { icon: '🔐', label: 'Conditional', color: '#f59e0b', data: knowledge?.conditional },
+            { icon: '🛡️', label: 'Private', color: '#ef4444', data: knowledge?.private },
+            { icon: '⚙️', label: 'Preferences', color: '#3b82f6', data: knowledge?.preferences },
+            { icon: '❓', label: 'Unclassified', color: '#f97316', count: stats.unclassifiedCount },
+            { icon: '🔄', label: 'Synced', color: '#8b5cf6', data: knowledge?.synced },
+          ].map(({ icon, label, color, data, count }) => {
+            const itemCount = count !== undefined ? count : (() => {
+              if (Array.isArray(data)) return data.length
+              if (typeof data === 'object' && data !== null) return Object.keys(data).length
+              return 0
+            })()
 
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">🔐</p>
-            <p className="text-yellow-700 dark:text-yellow-300 font-bold text-2xl md:text-3xl mb-1">
-              {(() => {
-                const data = knowledge?.conditional
-                if (Array.isArray(data)) return data.length
-                if (typeof data === 'object' && data !== null) return Object.keys(data).length
-                return 0
-              })()}
-            </p>
-            <p className="text-xs md:text-sm text-yellow-700 dark:text-yellow-400 font-semibold">Conditional</p>
-          </div>
-
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">🛡️</p>
-            <p className="text-red-700 dark:text-red-300 font-bold text-2xl md:text-3xl mb-1">
-              {(() => {
-                const data = knowledge?.private
-                if (Array.isArray(data)) return data.length
-                if (typeof data === 'object' && data !== null) return Object.keys(data).length
-                return 0
-              })()}
-            </p>
-            <p className="text-xs md:text-sm text-red-700 dark:text-red-400 font-semibold">Private</p>
-          </div>
-
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">⚙️</p>
-            <p className="text-blue-700 dark:text-blue-300 font-bold text-2xl md:text-3xl mb-1">
-              {Object.keys(knowledge?.preferences || {}).length}
-            </p>
-            <p className="text-xs md:text-sm text-blue-700 dark:text-blue-400 font-semibold">Preferences</p>
-          </div>
-
-          <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">❓</p>
-            <p className="text-orange-700 dark:text-orange-300 font-bold text-2xl md:text-3xl mb-1">
-              {stats.unclassifiedCount}
-            </p>
-            <p className="text-xs md:text-sm text-orange-700 dark:text-orange-400 font-semibold">Unclassified</p>
-          </div>
-
-          <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
-            <p className="text-2xl mb-3">🔄</p>
-            <p className="text-purple-700 dark:text-purple-300 font-bold text-2xl md:text-3xl mb-1">
-              {(() => {
-                const data = knowledge?.synced
-                if (Array.isArray(data)) return data.length
-                if (typeof data === 'object' && data !== null) return Object.keys(data).length
-                return 0
-              })()}
-            </p>
-            <p className="text-xs md:text-sm text-purple-700 dark:text-purple-400 font-semibold">Synced</p>
-          </div>
+            return (
+              <div key={label} className="glass p-6 rounded-2xl border card-hover text-center">
+                <div className="text-3xl mb-3">{icon}</div>
+                <div className="text-3xl font-black mb-2" style={{ color }}>{itemCount}</div>
+                <div className="text-xs font-bold uppercase tracking-wide" style={{ color: 'var(--color-text-muted)' }}>
+                  {label}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
 
       {/* Recent Sessions */}
-      <div className="mb-8 md:mb-12">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-black" style={{ color: 'var(--color-text-primary)' }}>
             Recent Sessions
           </h2>
           <Link
             href="/admin/sessions"
-            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors"
+            className="font-semibold text-sm transition-colors hover:scale-105 transform duration-200"
+            style={{ color: 'var(--color-primary)' }}
           >
             View All →
           </Link>
@@ -309,8 +294,9 @@ export default function DashboardPage() {
 
         <div className="space-y-3">
           {recentSessions.length === 0 ? (
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-8 text-center shadow-sm">
-              <p className="text-gray-600 dark:text-gray-400 text-base">
+            <div className="glass p-12 rounded-2xl border text-center">
+              <div className="text-5xl mb-4">📝</div>
+              <p className="text-lg" style={{ color: 'var(--color-text-secondary)' }}>
                 No sessions yet
               </p>
             </div>
@@ -318,25 +304,25 @@ export default function DashboardPage() {
             recentSessions.map((session) => (
               <div
                 key={session.id}
-                className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors shadow-sm"
+                className="glass p-5 rounded-2xl border card-hover flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-base text-gray-900 dark:text-white mb-1">
+                  <h3 className="font-bold text-lg mb-1" style={{ color: 'var(--color-text-primary)' }}>
                     {session.project}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
                     {new Date(session.startedAt).toLocaleDateString()}
                   </p>
                 </div>
                 <span
-                  className={`inline-flex text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap ${
+                  className={`inline-flex text-xs font-bold px-4 py-2 rounded-full whitespace-nowrap ${
                     session.status === 'active'
-                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                      : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-400'
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
                   }`}
                 >
-                  {session.status === 'active' && '● '}
-                  {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
+                  {session.status === 'active' && <span className="status-indicator status-active mr-2" />}
+                  {session.status.toUpperCase()}
                 </span>
               </div>
             ))
@@ -346,23 +332,43 @@ export default function DashboardPage() {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-5">
+        <h2 className="text-3xl font-black mb-6" style={{ color: 'var(--color-text-primary)' }}>
           Quick Actions
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
-          <Link
-            href="/admin/search"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-center transition-colors shadow-sm hover:shadow-md text-base inline-flex items-center justify-center gap-2"
-          >
-            <span>🔍</span>
-            <span>Search Knowledge</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link href="/admin/search" className="btn-primary py-4 text-center inline-flex items-center justify-center gap-3">
+            <span className="text-2xl">🔍</span>
+            <span>Search</span>
           </Link>
-          <Link
-            href="/admin/capture"
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl text-center transition-colors shadow-sm hover:shadow-md text-base inline-flex items-center justify-center gap-2"
-          >
-            <span>✏️</span>
-            <span>Capture Note</span>
+          <Link href="/admin/capture"
+                className="py-4 rounded-xl font-semibold text-center inline-flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, var(--color-success), #059669)',
+                  color: 'white',
+                  boxShadow: 'var(--shadow-md)'
+                }}>
+            <span className="text-2xl">✏️</span>
+            <span>Capture</span>
+          </Link>
+          <Link href="/admin/chat"
+                className="py-4 rounded-xl font-semibold text-center inline-flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, #8b5cf6, #a855f7)',
+                  color: 'white',
+                  boxShadow: 'var(--shadow-md)'
+                }}>
+            <span className="text-2xl">💬</span>
+            <span>Chat</span>
+          </Link>
+          <Link href="/admin/agents"
+                className="py-4 rounded-xl font-semibold text-center inline-flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+                  color: 'white',
+                  boxShadow: 'var(--shadow-md)'
+                }}>
+            <span className="text-2xl">🤖</span>
+            <span>Agents</span>
           </Link>
         </div>
       </div>

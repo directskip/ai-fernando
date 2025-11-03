@@ -90,12 +90,6 @@ export default function LoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
-
-          <div className="mt-6 text-center text-sm text-blue-300">
-            <p>
-              Demo credentials: peter@directskip.com / fernando123
-            </p>
-          </div>
         </div>
       </div>
     </main>

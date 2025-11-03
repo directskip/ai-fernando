@@ -49,6 +49,7 @@ mock-ws-server.js
 .gitlab-ci.yml
 Makefile
 docker-compose.yml
+infrastructure
 
 # Development files
 AGENT_*.md

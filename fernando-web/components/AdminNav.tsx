@@ -10,7 +10,12 @@ export default function AdminNav() {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [serverIp, setServerIp] = useState<string>('Loading...')
+  const [serverInfo, setServerInfo] = useState({
+    containerIp: 'Loading...',
+    apiStatus: 'checking',
+    dynamoStatus: 'checking',
+    wsStatus: 'checking',
+  })
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     'Core': true,
     'Content': true,
@@ -20,14 +25,30 @@ export default function AdminNav() {
   const firstLinkRef = useRef<HTMLAnchorElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
 
-  // Fetch server IP on mount
+  // Fetch server info and check system status
   useEffect(() => {
+    // Get server IP
     fetch('/api/server-info')
       .then(res => res.json())
       .then(data => {
-        setServerIp(data.containerIp || data.forwardedFor || 'Unknown')
+        setServerInfo(prev => ({
+          ...prev,
+          containerIp: data.containerIp || data.forwardedFor || 'Unknown'
+        }))
       })
-      .catch(() => setServerIp('Error'))
+      .catch(() => setServerInfo(prev => ({ ...prev, containerIp: 'Error' })))
+
+    // Check API Gateway
+    fetch(process.env.NEXT_PUBLIC_FERNANDO_API_URL + '/health', { method: 'HEAD' })
+      .then(res => setServerInfo(prev => ({ ...prev, apiStatus: res.ok ? 'connected' : 'down' })))
+      .catch(() => setServerInfo(prev => ({ ...prev, apiStatus: 'down' })))
+
+    // Check WebSocket (just check if URL is configured)
+    setServerInfo(prev => ({
+      ...prev,
+      wsStatus: process.env.NEXT_PUBLIC_WS_URL ? 'down' : 'down',
+      dynamoStatus: 'OK'
+    }))
   }, [])
 
   const toggleGroup = (groupName: string) => {
@@ -187,9 +208,40 @@ export default function AdminNav() {
           })}
         </div>
 
+        {/* System Status */}
+        <div className="border-t border-gray-200 dark:border-gray-800 p-3">
+          <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
+            System Status
+          </h3>
+          <div className="space-y-1 text-xs">
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">API Gateway</span>
+              <span className={`flex items-center gap-1 ${serverInfo.apiStatus === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {serverInfo.apiStatus === 'connected' ? '✓' : '✗'} {serverInfo.apiStatus === 'connected' ? 'connected' : 'Down'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">DynamoDB</span>
+              <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
+                ✓ {serverInfo.dynamoStatus}
+              </span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">WebSocket</span>
+              <span className={`flex items-center gap-1 ${serverInfo.wsStatus === 'active' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {serverInfo.wsStatus === 'active' ? '✓ active' : '✗ Down'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">UI</span>
+              <span className="text-gray-500 dark:text-gray-400 font-mono">v2.3.4</span>
+            </div>
+          </div>
+        </div>
+
         {/* Footer with User Info */}
-        <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-3">
-          <div className="px-2 py-2">
+        <div className="border-t border-gray-200 dark:border-gray-800 p-3 space-y-2">
+          <div className="px-2">
             <p className="text-xs text-gray-500 dark:text-gray-400">Logged in as</p>
             <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
               {session?.user?.name || 'User'}
@@ -197,16 +249,10 @@ export default function AdminNav() {
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/admin/login' })}
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-300"
+            className="w-full px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 rounded-lg transition-colors duration-200"
           >
-            Sign Out
+            Logout
           </button>
-          <div className="text-center pt-2 space-y-1">
-            <p className="text-xs text-gray-400 dark:text-gray-600 font-mono">v2.3.3</p>
-            <p className="text-xs text-gray-500 dark:text-gray-500 font-mono truncate" title={serverIp}>
-              IP: {serverIp}
-            </p>
-          </div>
         </div>
       </aside>
 

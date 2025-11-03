@@ -111,12 +111,12 @@ export default function InboxPage() {
 
   if (loading) {
     return (
-      <main className="container mx-auto px-4 py-6 md:py-8">
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin">
-            <p className="text-4xl">⏳</p>
+      <main>
+        <div className="text-center py-16">
+          <div className="inline-block animate-spin mb-4">
+            <p className="text-5xl">⏳</p>
           </div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading inbox...</p>
+          <p className="text-base text-gray-600 dark:text-gray-400">Loading inbox...</p>
         </div>
       </main>
     )
@@ -124,9 +124,9 @@ export default function InboxPage() {
 
   if (error) {
     return (
-      <main className="container mx-auto px-4 py-6 md:py-8">
-        <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4 text-red-800 dark:text-red-200">
-          <h2 className="font-semibold mb-2">Error</h2>
+      <main>
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-red-800 dark:text-red-200">
+          <h2 className="font-semibold mb-2 text-lg">Error</h2>
           <p>{error}</p>
         </div>
       </main>
@@ -134,20 +134,20 @@ export default function InboxPage() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-4 md:py-8 max-w-6xl">
-      <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+    <main>
+      <div className="mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           Brain Dump Inbox
         </h1>
-        <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
+        <p className="text-base text-gray-600 dark:text-gray-400">
           Review and approve AI extractions from your brain dumps
         </p>
       </div>
 
       {items.length === 0 ? (
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
-          <p className="text-2xl mb-2">📭</p>
-          <p className="text-gray-600 dark:text-gray-400">Your inbox is empty</p>
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-12 text-center shadow-sm">
+          <p className="text-3xl mb-3">📭</p>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">Your inbox is empty</p>
           <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
             Brain dumps will appear here for review
           </p>
@@ -162,40 +162,40 @@ export default function InboxPage() {
             return (
               <div
                 key={item.id}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm"
+                className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
               >
                 {/* Header */}
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="p-5 border-b border-gray-100 dark:border-slate-800">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
-                          Brain Dump
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-3 flex-wrap">
+                        <span className="text-xs font-semibold px-2.5 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">
+                          🧠 Brain Dump
                         </span>
                         {feedbackStatus && (
                           <span
-                            className={`text-xs font-medium px-2 py-1 rounded-full ${
+                            className={`text-xs font-semibold px-2.5 py-1.5 rounded-full ${
                               feedbackStatus === 'approved'
-                                ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                                 : feedbackStatus === 'rejected'
-                                  ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
-                                  : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                                  ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+                                  : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
                             }`}
                           >
-                            {feedbackStatus === 'needs_info' ? 'Needs Info' : feedbackStatus}
+                            {feedbackStatus === 'needs_info' ? '⚠️ Needs Info' : `✓ ${feedbackStatus}`}
                           </span>
                         )}
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {new Date(item.timestamp).toLocaleString()}
+                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">
+                          {new Date(item.timestamp).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className="text-gray-900 dark:text-white font-medium mb-2">
+                      <p className="text-gray-900 dark:text-white font-medium text-base break-words">
                         {item.originalContent}
                       </p>
                     </div>
                     <button
                       onClick={() => toggleExpanded(item.id)}
-                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+                      className="flex-shrink-0 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
                     >
                       {isExpanded ? '▼' : '▶'}
                     </button>

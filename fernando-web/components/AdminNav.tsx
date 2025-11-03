@@ -155,120 +155,99 @@ export default function AdminNav() {
   return (
     <>
       {/* Desktop Sidebar - Fixed on left */}
-      <aside className="hidden md:flex md:flex-col fixed left-0 top-0 h-screen w-32 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
-        {/* Header */}
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-800">
+      <aside className="hidden md:flex md:flex-col fixed left-0 top-0 h-screen w-64 bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 shadow-sm">
+        {/* Header - Logo Area */}
+        <div className="flex items-center justify-between h-16 px-6 border-b border-gray-100 dark:border-slate-800">
           <Link
             href="/admin/dashboard"
-            className="text-xl font-bold text-gray-900 dark:text-white hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            Fernando
+            <div className="text-2xl">🤖</div>
+            <span className="text-lg font-bold text-gray-900 dark:text-white">Fernando</span>
           </Link>
         </div>
 
         {/* Navigation Links - Grouped with Collapse/Expand */}
-        <div className="flex-1 overflow-y-auto py-4 px-2 space-y-2">
+        <div className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
           {navGroups.map((group) => {
             const isExpanded = expandedGroups[group.name]
             return (
-              <div key={group.name} className="space-y-1">
+              <div key={group.name} className="space-y-2">
                 {/* Group header - clickable to toggle */}
                 <button
                   onClick={() => toggleGroup(group.name)}
-                  className="w-full text-center px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors duration-200"
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider hover:bg-gray-100 dark:hover:bg-slate-900 rounded-lg transition-colors duration-200"
                 >
-                  <div className="flex items-center justify-center gap-1">
-                    <span className="text-xs">{isExpanded ? '▼' : '▶'}</span>
-                    <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">
-                      {group.name}
-                    </p>
-                  </div>
+                  <span>{group.name}</span>
+                  <span className="text-xs text-gray-400">{isExpanded ? '▼' : '▶'}</span>
                 </button>
                 {/* Group items - show/hide based on expanded state */}
-                {isExpanded && group.items.map((link) => {
-                  const active = isActive(link.href)
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`flex flex-col items-center justify-center px-2 py-3 rounded-lg text-xs font-medium transition-colors duration-300 ${
-                        active
-                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-                      }`}
-                      title={link.label}
-                    >
-                      <span className="text-2xl mb-1">{link.icon}</span>
-                      <span className="text-center leading-tight">{link.label}</span>
-                    </Link>
-                  )
-                })}
+                {isExpanded && (
+                  <div className="space-y-1 pl-2">
+                    {group.items.map((link) => {
+                      const active = isActive(link.href)
+                      return (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            active
+                              ? 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-200'
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-900'
+                          }`}
+                        >
+                          <span className="text-base flex-shrink-0">{link.icon}</span>
+                          <span className="flex-1">{link.label}</span>
+                        </Link>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             )
           })}
         </div>
 
-        {/* System Status */}
-        <div className="border-t border-gray-200 dark:border-gray-800 p-3">
-          <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
+        {/* System Status - Compact Cards */}
+        <div className="border-t border-gray-100 dark:border-slate-800 p-4 space-y-3 bg-gray-50 dark:bg-slate-900/50">
+          <h3 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider px-1">
             System Status
           </h3>
-          <div className="space-y-1 text-xs">
-            <div className="flex items-center justify-between px-2 py-1">
-              <span className="text-gray-600 dark:text-gray-400">API Gateway</span>
-              <span className={`flex items-center gap-1 ${serverInfo.apiStatus === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                {serverInfo.apiStatus === 'connected' ? '✓' : '✗'} {serverInfo.apiStatus === 'connected' ? 'connected' : 'Down'}
+          <div className="space-y-2 text-xs">
+            <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-slate-900 rounded border border-gray-100 dark:border-slate-800">
+              <span className="text-gray-600 dark:text-gray-400">API</span>
+              <span className={`flex items-center gap-1 font-medium ${serverInfo.apiStatus === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {serverInfo.apiStatus === 'connected' ? '● ' : '● '}{serverInfo.apiStatus === 'connected' ? 'OK' : 'Down'}
               </span>
             </div>
-            <div className="flex items-center justify-between px-2 py-1">
-              <span className="text-gray-600 dark:text-gray-400">DynamoDB</span>
-              <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
-                ✓ {serverInfo.dynamoStatus}
+            <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-slate-900 rounded border border-gray-100 dark:border-slate-800">
+              <span className="text-gray-600 dark:text-gray-400">DB</span>
+              <span className="flex items-center gap-1 text-green-600 dark:text-green-400 font-medium">
+                ● OK
               </span>
-            </div>
-            <div className="flex items-center justify-between px-2 py-1">
-              <span className="text-gray-600 dark:text-gray-400">WebSocket</span>
-              <span className={`flex items-center gap-1 ${serverInfo.wsStatus === 'active' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                {serverInfo.wsStatus === 'active' ? '✓ active' : '✗ Down'}
-              </span>
-            </div>
-            <div className="flex items-center justify-between px-2 py-1">
-              <span className="text-gray-600 dark:text-gray-400">UI</span>
-              <span className="text-gray-500 dark:text-gray-400 font-mono">v2.3.4</span>
-            </div>
-            <div className="flex items-center justify-between px-2 py-1">
-              <span className="text-gray-600 dark:text-gray-400">Server IP</span>
-              <span className="text-gray-500 dark:text-gray-400 font-mono text-xs" title={serverInfo.containerIp}>
-                {serverInfo.containerIp.substring(0, 12)}...
-              </span>
-            </div>
-            <div className="px-2 py-1 mt-2 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
-              <p className="text-xs text-blue-700 dark:text-blue-300 font-bold text-center">
-                🚀 ECS DEPLOYMENT
-              </p>
             </div>
           </div>
         </div>
 
         {/* Footer with User Info */}
-        <div className="border-t border-gray-200 dark:border-gray-800 p-3 space-y-2">
-          <div className="px-2">
-            <p className="text-xs text-gray-500 dark:text-gray-400">Logged in as</p>
-            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+        <div className="border-t border-gray-100 dark:border-slate-800 p-4 space-y-3">
+          <div className="px-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Logged in as</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
               {session?.user?.name || 'User'}
             </p>
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/admin/login' })}
-            className="w-full px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 rounded-lg transition-colors duration-200"
+            className="w-full px-3 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 rounded-lg transition-colors duration-200"
           >
-            Logout
+            Sign Out
           </button>
         </div>
       </aside>
 
       {/* Mobile Header - Top Navigation Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 flex items-center justify-between px-4">
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-slate-800 z-50 flex items-center justify-between px-4 shadow-sm">
         {/* Hamburger Menu Button */}
         <button
           ref={hamburgerRef}
@@ -276,7 +255,7 @@ export default function AdminNav() {
           aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
-          className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+          className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-900 transition-colors duration-300"
           type="button"
         >
           <div className="flex flex-col justify-center items-center gap-1.5 w-6 h-6">
@@ -301,12 +280,13 @@ export default function AdminNav() {
           </div>
         </button>
 
-        {/* Logo */}
+        {/* Logo - Center */}
         <Link
           href="/admin/dashboard"
-          className="text-lg font-bold text-gray-900 dark:text-white flex-1 text-center"
+          className="flex items-center gap-2 flex-1 justify-center"
         >
-          Fernando
+          <div className="text-xl">🤖</div>
+          <span className="text-base font-bold text-gray-900 dark:text-white">Fernando</span>
         </Link>
 
         {/* Spacer for layout balance */}
@@ -325,7 +305,7 @@ export default function AdminNav() {
       {/* Mobile Menu - Slide-in from Left */}
       <nav
         id="mobile-menu"
-        className={`md:hidden fixed top-16 left-0 bottom-0 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40 transform transition-transform duration-300 overflow-y-auto ${
+        className={`md:hidden fixed top-16 left-0 bottom-0 w-64 bg-white dark:bg-slate-950 border-r border-gray-200 dark:border-slate-800 z-40 transform transition-transform duration-300 overflow-y-auto shadow-lg ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         onTouchStart={handleTouchStart}
@@ -334,54 +314,56 @@ export default function AdminNav() {
         aria-label="Mobile navigation menu"
       >
         {/* Navigation Links - Grouped with Collapse/Expand */}
-        <div className="py-2 px-2 space-y-2">
+        <div className="py-4 px-3 space-y-1">
           {navGroups.map((group, groupIndex) => {
             const isExpanded = expandedGroups[group.name]
             return (
-              <div key={group.name} className="space-y-1">
+              <div key={group.name} className="space-y-2">
                 {/* Group header - clickable to toggle */}
                 <button
                   onClick={() => toggleGroup(group.name)}
-                  className="w-full flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors duration-200"
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider hover:bg-gray-100 dark:hover:bg-slate-900 rounded-lg transition-colors duration-200"
                 >
-                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    {group.name}
-                  </p>
+                  <span>{group.name}</span>
                   <span className="text-xs text-gray-400">{isExpanded ? '▼' : '▶'}</span>
                 </button>
                 {/* Group items - show/hide based on expanded state */}
-                {isExpanded && group.items.map((link, itemIndex) => {
-                  const active = isActive(link.href)
-                  const isFirstItem = groupIndex === 0 && itemIndex === 0
-                  return (
-                    <Link
-                      key={link.href}
-                      ref={isFirstItem ? firstLinkRef : null}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-300 ${
-                        active
-                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-                      }`}
-                      role="menuitem"
-                      aria-current={active ? 'page' : undefined}
-                    >
-                      <span className="text-lg w-5 flex-shrink-0">{link.icon}</span>
-                      <span>{link.label}</span>
-                    </Link>
-                  )
-                })}
+                {isExpanded && (
+                  <div className="space-y-1 pl-2">
+                    {group.items.map((link, itemIndex) => {
+                      const active = isActive(link.href)
+                      const isFirstItem = groupIndex === 0 && itemIndex === 0
+                      return (
+                        <Link
+                          key={link.href}
+                          ref={isFirstItem ? firstLinkRef : null}
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                            active
+                              ? 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-200'
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-900'
+                          }`}
+                          role="menuitem"
+                          aria-current={active ? 'page' : undefined}
+                        >
+                          <span className="text-base flex-shrink-0">{link.icon}</span>
+                          <span className="flex-1">{link.label}</span>
+                        </Link>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             )
           })}
         </div>
 
         {/* Footer with User Info */}
-        <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-3 mt-4">
-          <div className="px-2 py-2">
-            <p className="text-xs text-gray-500 dark:text-gray-400">Logged in as</p>
-            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+        <div className="border-t border-gray-100 dark:border-slate-800 p-4 space-y-3 mt-4 bg-gray-50 dark:bg-slate-900/50">
+          <div className="px-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Logged in as</p>
+            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
               {session?.user?.name || 'User'}
             </p>
           </div>
@@ -390,11 +372,11 @@ export default function AdminNav() {
               setIsOpen(false)
               signOut({ callbackUrl: '/admin/login' })
             }}
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-300"
+            className="w-full px-3 py-2.5 text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 rounded-lg transition-colors duration-200"
           >
             Sign Out
           </button>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 px-2">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 px-1">
             Swipe left or press ESC to close
           </p>
         </div>

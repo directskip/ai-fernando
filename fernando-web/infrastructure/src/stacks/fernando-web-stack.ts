@@ -46,14 +46,11 @@ export class FernandoWebStack extends cdk.Stack {
     };
 
     // Secrets (should be stored in AWS Secrets Manager)
-    const secrets = {
-      NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    };
+    // NEXTAUTH_SECRET is handled via environment variables
 
     // VPC
     const vpc = new ec2.Vpc(this, 'FernandoWebVpc', {
       maxAzs: 2,
-      cidrMask: 24,
       natGateways: 1,
     });
 
@@ -144,7 +141,7 @@ export class FernandoWebStack extends cdk.Stack {
     });
 
     // Add container to task definition
-    const container = taskDefinition.addContainer('FernandoWebContainer', {
+    taskDefinition.addContainer('FernandoWebContainer', {
       image: ecs.ContainerImage.fromEcrRepository(repository, 'latest'),
       portMappings: [
         {

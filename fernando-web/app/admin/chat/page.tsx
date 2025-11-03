@@ -160,7 +160,7 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="fixed inset-0 md:left-32 top-0 md:top-0 flex bg-gray-50 dark:bg-gray-950">
+    <div className="fixed inset-0 md:left-64 top-0 md:top-0 flex bg-gray-50 dark:bg-slate-950">
       {/* Conversation List Sidebar */}
       <ConversationList
         conversations={conversations}
@@ -175,7 +175,7 @@ export default function ChatPage() {
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="flex-shrink-0 h-16 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex items-center justify-between px-4">
+        <header className="flex-shrink-0 h-16 border-b border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-4 shadow-sm">
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -214,25 +214,25 @@ export default function ChatPage() {
         </header>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 bg-gray-50 dark:bg-slate-950">
           {messages.length === 0 && !isLoading ? (
             <div className="flex flex-col items-center justify-center h-full text-center px-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-2xl mb-4">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-3xl mb-6">
                 F
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
                 Chat with Fernando
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-md mb-8">
+              <p className="text-gray-600 dark:text-gray-400 max-w-md mb-10 text-base">
                 I'm your personal AI assistant. I can help you think through ideas, answer
                 questions, and access your knowledge base. What would you like to discuss?
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl w-full">
                 <button
                   onClick={() => setInput('What do you know about my preferences?')}
-                  className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors text-left"
+                  className="p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl hover:border-blue-300 dark:hover:border-blue-700 transition-all text-left"
                 >
-                  <p className="font-medium text-gray-900 dark:text-white mb-1">
+                  <p className="font-semibold text-gray-900 dark:text-white mb-1">
                     My Preferences
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -241,27 +241,27 @@ export default function ChatPage() {
                 </button>
                 <button
                   onClick={() => setInput('Help me brainstorm ideas for...')}
-                  className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors text-left"
+                  className="p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl hover:border-blue-300 dark:hover:border-blue-700 transition-all text-left"
                 >
-                  <p className="font-medium text-gray-900 dark:text-white mb-1">Brainstorm</p>
+                  <p className="font-semibold text-gray-900 dark:text-white mb-1">Brainstorm</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Generate and explore ideas together
                   </p>
                 </button>
                 <button
                   onClick={() => setInput("What's in my knowledge base about...")}
-                  className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors text-left"
+                  className="p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl hover:border-blue-300 dark:hover:border-blue-700 transition-all text-left"
                 >
-                  <p className="font-medium text-gray-900 dark:text-white mb-1">Search Knowledge</p>
+                  <p className="font-semibold text-gray-900 dark:text-white mb-1">Search Knowledge</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Find information you've saved
                   </p>
                 </button>
                 <button
                   onClick={() => setInput('Can you help me with...')}
-                  className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors text-left"
+                  className="p-4 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl hover:border-blue-300 dark:hover:border-blue-700 transition-all text-left"
                 >
-                  <p className="font-medium text-gray-900 dark:text-white mb-1">Ask a Question</p>
+                  <p className="font-semibold text-gray-900 dark:text-white mb-1">Ask a Question</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     Get help with anything on your mind
                   </p>
@@ -314,12 +314,12 @@ export default function ChatPage() {
 
         {/* Error Banner */}
         {error && (
-          <div className="flex-shrink-0 mx-4 mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <div className="flex-shrink-0 mx-4 mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+              <p className="text-sm text-red-800 dark:text-red-200 font-medium">{error}</p>
               <button
                 onClick={() => setError(null)}
-                className="text-red-800 dark:text-red-200 hover:text-red-900 dark:hover:text-red-100"
+                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex-shrink-0"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -330,9 +330,9 @@ export default function ChatPage() {
         )}
 
         {/* Input Area */}
-        <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4">
+        <div className="flex-shrink-0 border-t border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-lg">
           <div className="max-w-4xl mx-auto">
-            <div className="relative flex items-end gap-2">
+            <div className="relative flex items-end gap-3">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -341,19 +341,19 @@ export default function ChatPage() {
                 placeholder="Message Fernando... (Shift+Enter for new line)"
                 disabled={isSending}
                 rows={1}
-                className="flex-1 resize-none rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed max-h-40 overflow-y-auto"
-                style={{ minHeight: '52px' }}
+                className="flex-1 resize-none rounded-xl border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed max-h-40 overflow-y-auto"
+                style={{ minHeight: '44px' }}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!input.trim() || isSending}
-                className="flex-shrink-0 p-3 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 dark:disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
+                className="flex-shrink-0 p-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white rounded-xl transition-colors"
                 title="Send message (Enter)"
               >
                 {isSending ? (
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white" />
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
                 ) : (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"

@@ -117,12 +117,12 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-4 md:py-8 max-w-7xl">
-      <div className="mb-4 md:mb-8">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-1 md:mb-2">
+    <main className="">
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
           Dashboard
         </h1>
-        <p className="text-sm md:text-base lg:text-lg text-gray-600 dark:text-gray-400">Welcome back! Here is your overview.</p>
+        <p className="text-base text-gray-600 dark:text-gray-400">Welcome back! Here is your overview.</p>
       </div>
 
       {/* Inbox Alert */}
@@ -176,41 +176,56 @@ export default function DashboardPage() {
       )}
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 mb-6 md:mb-10">
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 md:p-6 lg:p-7 shadow-sm hover:shadow-md transition-shadow">
-          <div className="text-3xl md:text-4xl mb-2">📚</div>
-          <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-1.5">Knowledge Items</p>
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-3xl">📚</div>
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded">
+              Total
+            </div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Knowledge Items</p>
+          <p className="text-4xl font-bold text-gray-900 dark:text-white">
             {stats.totalKnowledge}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 md:p-6 lg:p-7 shadow-sm hover:shadow-md transition-shadow">
-          <div className="text-3xl md:text-4xl mb-2">📋</div>
-          <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-1.5">Total Sessions</p>
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-3xl">📋</div>
+            <div className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded">
+              Total
+            </div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Sessions</p>
+          <p className="text-4xl font-bold text-gray-900 dark:text-white">
             {stats.totalSessions}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 md:p-6 lg:p-7 shadow-sm hover:shadow-md transition-shadow">
-          <div className="text-3xl md:text-4xl mb-2">🟢</div>
-          <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm mb-1.5">Active Sessions</p>
-          <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md transition-all">
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-3xl">🟢</div>
+            <div className="text-xs font-medium text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded">
+              Active
+            </div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-2 font-medium">Sessions</p>
+          <p className="text-4xl font-bold text-gray-900 dark:text-white">
             {stats.activeSessions}
           </p>
         </div>
       </div>
 
       {/* Knowledge Categories */}
-      <div className="mb-6 md:mb-10">
-        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-900 dark:text-white mb-3 md:mb-5">
+      <div className="mb-8 md:mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-5">
           Knowledge Categories
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2.5 md:gap-3 lg:gap-4">
-          <div className="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">📖</p>
-            <p className="text-green-800 dark:text-green-200 font-bold text-xl md:text-2xl mb-0.5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">📖</p>
+            <p className="text-green-700 dark:text-green-300 font-bold text-2xl md:text-3xl mb-1">
               {(() => {
                 const data = knowledge?.public
                 if (Array.isArray(data)) return data.length
@@ -218,12 +233,12 @@ export default function DashboardPage() {
                 return 0
               })()}
             </p>
-            <p className="text-xs md:text-sm text-green-700 dark:text-green-300 font-medium">Public</p>
+            <p className="text-xs md:text-sm text-green-700 dark:text-green-400 font-semibold">Public</p>
           </div>
 
-          <div className="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">🔐</p>
-            <p className="text-yellow-800 dark:text-yellow-200 font-bold text-xl md:text-2xl mb-0.5">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">🔐</p>
+            <p className="text-yellow-700 dark:text-yellow-300 font-bold text-2xl md:text-3xl mb-1">
               {(() => {
                 const data = knowledge?.conditional
                 if (Array.isArray(data)) return data.length
@@ -231,12 +246,12 @@ export default function DashboardPage() {
                 return 0
               })()}
             </p>
-            <p className="text-xs md:text-sm text-yellow-700 dark:text-yellow-300 font-medium">Conditional</p>
+            <p className="text-xs md:text-sm text-yellow-700 dark:text-yellow-400 font-semibold">Conditional</p>
           </div>
 
-          <div className="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">🛡️</p>
-            <p className="text-red-800 dark:text-red-200 font-bold text-xl md:text-2xl mb-0.5">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">🛡️</p>
+            <p className="text-red-700 dark:text-red-300 font-bold text-2xl md:text-3xl mb-1">
               {(() => {
                 const data = knowledge?.private
                 if (Array.isArray(data)) return data.length
@@ -244,28 +259,28 @@ export default function DashboardPage() {
                 return 0
               })()}
             </p>
-            <p className="text-xs md:text-sm text-red-700 dark:text-red-300 font-medium">Private</p>
+            <p className="text-xs md:text-sm text-red-700 dark:text-red-400 font-semibold">Private</p>
           </div>
 
-          <div className="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">⚙️</p>
-            <p className="text-blue-800 dark:text-blue-200 font-bold text-xl md:text-2xl mb-0.5">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">⚙️</p>
+            <p className="text-blue-700 dark:text-blue-300 font-bold text-2xl md:text-3xl mb-1">
               {Object.keys(knowledge?.preferences || {}).length}
             </p>
-            <p className="text-xs md:text-sm text-blue-700 dark:text-blue-300 font-medium">Preferences</p>
+            <p className="text-xs md:text-sm text-blue-700 dark:text-blue-400 font-semibold">Preferences</p>
           </div>
 
-          <div className="bg-orange-50 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">❓</p>
-            <p className="text-orange-800 dark:text-orange-200 font-bold text-xl md:text-2xl mb-0.5">
+          <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">❓</p>
+            <p className="text-orange-700 dark:text-orange-300 font-bold text-2xl md:text-3xl mb-1">
               {stats.unclassifiedCount}
             </p>
-            <p className="text-xs md:text-sm text-orange-700 dark:text-orange-300 font-medium">Unclassified</p>
+            <p className="text-xs md:text-sm text-orange-700 dark:text-orange-400 font-semibold">Unclassified</p>
           </div>
 
-          <div className="bg-purple-50 dark:bg-purple-900 border border-purple-200 dark:border-purple-700 rounded-lg p-3 md:p-4 lg:p-5 text-center shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-2xl md:text-3xl mb-1.5">🔄</p>
-            <p className="text-purple-800 dark:text-purple-200 font-bold text-xl md:text-2xl mb-0.5">
+          <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-4 md:p-5 text-center shadow-sm hover:shadow-md transition-all">
+            <p className="text-2xl mb-3">🔄</p>
+            <p className="text-purple-700 dark:text-purple-300 font-bold text-2xl md:text-3xl mb-1">
               {(() => {
                 const data = knowledge?.synced
                 if (Array.isArray(data)) return data.length
@@ -273,29 +288,29 @@ export default function DashboardPage() {
                 return 0
               })()}
             </p>
-            <p className="text-xs md:text-sm text-purple-700 dark:text-purple-300 font-medium">Synced</p>
+            <p className="text-xs md:text-sm text-purple-700 dark:text-purple-400 font-semibold">Synced</p>
           </div>
         </div>
       </div>
 
       {/* Recent Sessions */}
-      <div className="mb-6 md:mb-10">
-        <div className="flex items-center justify-between mb-3 md:mb-5">
-          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-900 dark:text-white">
+      <div className="mb-8 md:mb-12">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Recent Sessions
           </h2>
           <Link
-            href="/sessions"
-            className="text-blue-600 dark:text-blue-400 hover:underline text-xs md:text-sm font-medium"
+            href="/admin/sessions"
+            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors"
           >
             View All →
           </Link>
         </div>
 
-        <div className="space-y-2.5 md:space-y-3">
+        <div className="space-y-3">
           {recentSessions.length === 0 ? (
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 md:p-10 text-center">
-              <p className="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-8 text-center shadow-sm">
+              <p className="text-gray-600 dark:text-gray-400 text-base">
                 No sessions yet
               </p>
             </div>
@@ -303,24 +318,25 @@ export default function DashboardPage() {
             recentSessions.map((session) => (
               <div
                 key={session.id}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-3 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
+                className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors shadow-sm"
               >
-                <div>
-                  <h3 className="font-semibold text-sm md:text-base text-gray-900 dark:text-white mb-0.5">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-base text-gray-900 dark:text-white mb-1">
                     {session.project}
                   </h3>
-                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     {new Date(session.startedAt).toLocaleDateString()}
                   </p>
                 </div>
                 <span
-                  className={`text-xs font-medium px-3 py-1.5 rounded-full self-start sm:self-auto ${
+                  className={`inline-flex text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap ${
                     session.status === 'active'
-                      ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300'
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                      : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-400'
                   }`}
                 >
-                  {session.status}
+                  {session.status === 'active' && '● '}
+                  {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
                 </span>
               </div>
             ))
@@ -329,22 +345,24 @@ export default function DashboardPage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-6 md:mb-10">
-        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-900 dark:text-white mb-3 md:mb-5">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-5">
           Quick Actions
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 md:gap-3 lg:gap-4 max-w-4xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
           <Link
-            href="/search"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg text-center transition-colors shadow-sm hover:shadow-md text-sm md:text-base"
+            href="/admin/search"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-center transition-colors shadow-sm hover:shadow-md text-base inline-flex items-center justify-center gap-2"
           >
-            🔍 Search Knowledge
+            <span>🔍</span>
+            <span>Search Knowledge</span>
           </Link>
           <Link
-            href="/capture"
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg text-center transition-colors shadow-sm hover:shadow-md text-sm md:text-base"
+            href="/admin/capture"
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl text-center transition-colors shadow-sm hover:shadow-md text-base inline-flex items-center justify-center gap-2"
           >
-            ✏️ Capture Note
+            <span>✏️</span>
+            <span>Capture Note</span>
           </Link>
         </div>
       </div>

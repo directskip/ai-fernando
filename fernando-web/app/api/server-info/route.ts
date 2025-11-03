@@ -40,7 +40,7 @@ export async function GET() {
       host: host || 'Not available',
       taskArn: taskMetadata?.TaskARN || 'Not running on ECS',
       cluster: taskMetadata?.Cluster || 'Not running on ECS',
-      availability Zone: taskMetadata?.AvailabilityZone || 'Not available',
+      availabilityZone: taskMetadata?.AvailabilityZone || 'Not available',
       timestamp: new Date().toISOString(),
     })
   } catch (error) {

@@ -208,23 +208,44 @@ export default function AdminNav() {
           })}
         </div>
 
-        {/* System Status - Compact Cards */}
-        <div className="border-t border-gray-100 dark:border-slate-800 p-4 space-y-3 bg-gray-50 dark:bg-slate-900/50">
-          <h3 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider px-1">
+        {/* System Status */}
+        <div className="border-t border-gray-100 dark:border-slate-800 p-3">
+          <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-2">
             System Status
           </h3>
-          <div className="space-y-2 text-xs">
-            <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-slate-900 rounded border border-gray-100 dark:border-slate-800">
-              <span className="text-gray-600 dark:text-gray-400">API</span>
-              <span className={`flex items-center gap-1 font-medium ${serverInfo.apiStatus === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                {serverInfo.apiStatus === 'connected' ? '● ' : '● '}{serverInfo.apiStatus === 'connected' ? 'OK' : 'Down'}
+          <div className="space-y-1 text-xs">
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">API Gateway</span>
+              <span className={`flex items-center gap-1 ${serverInfo.apiStatus === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {serverInfo.apiStatus === 'connected' ? '✓' : '✗'} {serverInfo.apiStatus === 'connected' ? 'connected' : 'Down'}
               </span>
             </div>
-            <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-slate-900 rounded border border-gray-100 dark:border-slate-800">
-              <span className="text-gray-600 dark:text-gray-400">DB</span>
-              <span className="flex items-center gap-1 text-green-600 dark:text-green-400 font-medium">
-                ● OK
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">DynamoDB</span>
+              <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
+                ✓ {serverInfo.dynamoStatus}
               </span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">WebSocket</span>
+              <span className={`flex items-center gap-1 ${serverInfo.wsStatus === 'active' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                {serverInfo.wsStatus === 'active' ? '✓ active' : '✗ Down'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">UI</span>
+              <span className="text-gray-500 dark:text-gray-400 font-mono">v3.0.0</span>
+            </div>
+            <div className="flex items-center justify-between px-2 py-1">
+              <span className="text-gray-600 dark:text-gray-400">Server IP</span>
+              <span className="text-gray-500 dark:text-gray-400 font-mono text-xs" title={serverInfo.containerIp}>
+                {serverInfo.containerIp.substring(0, 12)}...
+              </span>
+            </div>
+            <div className="px-2 py-1 mt-2 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
+              <p className="text-xs text-blue-700 dark:text-blue-300 font-bold text-center">
+                🚀 ECS DEPLOYMENT
+              </p>
             </div>
           </div>
         </div>
